@@ -5,4 +5,3 @@ def create_app():
     app = FastAPI()
     app.include_router(test_router)
     return app
-app = create_app()
