@@ -12,6 +12,7 @@ class Config(object):
         self.environment = environment
 
     # Model Settings
+    TEMPERATURE = 0.17
     MODEL_ROOT_PATH = ''
 
     # DB Settings
