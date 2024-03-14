@@ -3,6 +3,7 @@ from app.controller import test_router
 from app.configs import get_config_by_env
 from fastapi.middleware.cors import CORSMiddleware
 
+
 def create_app(env):
     config = get_config_by_env(env)
     _app = FastAPI(
@@ -21,5 +22,3 @@ def create_app(env):
     _app.include_router(test_router)
     _app.__setattr__("config", config)
     return _app
-
-
