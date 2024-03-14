@@ -9,6 +9,9 @@ class DevConfig(Config):
 
     MODEL_ROOT_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'models')
 
+    # CORS
+    OPEN_CORS = True
+
     # Model Settings
     LLM_MODELS = ["Qwen-1_8B-Chat"]
     DEFAULT_DEVICE = "auto"

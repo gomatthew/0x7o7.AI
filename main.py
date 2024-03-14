@@ -10,6 +10,11 @@ debug = True if RUNTIME_ENV == 'dev' else False
 app = create_app(RUNTIME_ENV)
 
 
+
+def run_server(runtime_env):
+    app = create_app(runtime_env)
+
+
 def run_model(model_name):
     device = app.config.DEFAULT_DEVICE
     if model_name not in app.config.LLM_MODELS:
