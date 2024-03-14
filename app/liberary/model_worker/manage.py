@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 def do_run_model(**kwargs):
     from fastchat.serve.model_worker import app, GptqConfig, AWQConfig, ModelWorker, worker_id
 
