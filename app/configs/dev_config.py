@@ -7,7 +7,7 @@ class DevConfig(Config):
     # MySQL
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:makemoney@127.0.0.1:3306/aitest"
 
-    MODEL_ROOT_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'models')
+    MODEL_ROOT_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'models')
 
     # Model Settings
     LLM_MODELS = ["Qwen-1_8B-Chat"]
@@ -27,11 +27,11 @@ class DevConfig(Config):
             # "load_8bit": False, # 开启8bit量化
             # "cpu_offloading": None,
             # "gptq_ckpt": None,
-            # "gptq_wbits": 16,
+            "gptq_wbits": 16,
             # "gptq_groupsize": -1,
             # "gptq_act_order": False,
             # "awq_ckpt": None,
-            # "awq_wbits": 16,
+            "awq_wbits": 16,
             # "awq_groupsize": -1,
             # "model_names": LLM_MODELS,
             # "conv_template": None,

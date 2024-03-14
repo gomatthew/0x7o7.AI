@@ -18,7 +18,7 @@ def do_run_model(**kwargs):
         ckpt=args.awq_ckpt or args.model_path,
         wbits=args.awq_wbits,
         groupsize=args.awq_groupsize, )
-    worker = ModelWorker(controller_addr=args.controller_address,
+    worker = ModelWorker(controller_addr=args.controller_addr,
                          worker_addr=args.worker_address,
                          worker_id=worker_id,
                          model_path=args.model_path,

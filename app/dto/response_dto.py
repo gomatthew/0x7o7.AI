@@ -9,7 +9,7 @@ class BaseResponse(BaseModel):
     data: Any = pydantic.Field(None, description='service return data')
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "status": 200,
                 "message": "success",
@@ -19,6 +19,6 @@ class BaseResponse(BaseModel):
 
 
 class ResponseHttp200(BaseResponse):
-    status = 200
-    message = 'success'
-    data = None
+    status: int = pydantic.Field(200, description='status code')
+    message: str = pydantic.Field(200, description='return message')
+    data: Any = pydantic.Field(..., description='json status')

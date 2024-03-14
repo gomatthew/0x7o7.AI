@@ -18,16 +18,16 @@ def run_model(model_name):
         device = detect_device()
     host = app.config.MODEL_WORKER.get('default').get('host')
     default_port = app.config.MODEL_WORKER.get('default').get('port')
-    port = app.config.MODEL_WORKER.get(model_name).get('port') if app.config.MODEL_WORKER.get(model_name).get('port') else default_port
+    port = app.config.MODEL_WORKER.get(model_name).get('port') if app.config.MODEL_WORKER.get(model_name) else default_port
 
     model_path = os.path.join(app.config.MODEL_ROOT_PATH, model_name)
-    gptq_config = dict(gptq_ckpt=app.config.MODEL_WORKER.get('gptq_ckpt'), model_path=model_path,
-                       gptq_wbits=app.config.MODEL_WORKER.get('gptq_wbits'),
-                       gptq_groupsize=app.config.MODEL_WORKER.get('gptq_groupsize'),
-                       gptq_act_order=app.config.MODEL_WORKER.get('gptq_act_order'))
-    awq_config = dict(awq_ckpt=app.config.MODEL_WORKER.get('awq_ckpt'), model_path=model_path,
-                      awq_wbits=app.config.MODEL_WORKER.get('awq_wbits'),
-                      awq_groupsize=app.config.MODEL_WORKER.get('awq_groupsize'))
+    gptq_config = dict(gptq_ckpt=app.config.MODEL_WORKER.get('default').get('gptq_ckpt'), model_path=model_path,
+                       gptq_wbits=app.config.MODEL_WORKER.get('default').get('gptq_wbits'),
+                       gptq_groupsize=app.config.MODEL_WORKER.get('default').get('gptq_groupsize'),
+                       gptq_act_order=app.config.MODEL_WORKER.get('default').get('gptq_act_order'))
+    awq_config = dict(awq_ckpt=app.config.MODEL_WORKER.get('default').get('awq_ckpt'), model_path=model_path,
+                      awq_wbits=app.config.MODEL_WORKER.get('default').get('awq_wbits'),
+                      awq_groupsize=app.config.MODEL_WORKER.get('default').get('awq_groupsize'))
     model_worker_config = dict(controller_addr='http://127.0.0.1:20000',
                                worker_address='http://127.0.0.1:20002',
                                model_path=model_path, model_names=model_name,
@@ -44,8 +44,12 @@ def run_model(model_name):
                                conv_template=app.config.MODEL_WORKER.get('conv_template'),
                                embed_in_truncate=app.config.MODEL_WORKER.get('embed_in_truncate')
                                )
-    _app = do_run_model(**gptq_config, **awq_config, **model_worker_config)
-    uvicorn.run(_app, host=host, port=port, log_level=log_level.lower())
+    finnal_params = dict()
+    finnal_params.update(gptq_config)
+    finnal_params.update(awq_config)
+    finnal_params.update(model_worker_config)
+    _app = do_run_model(**finnal_params)
+    uvicorn.run(_app, host=host, port=port)
 
 
 def main():
@@ -56,4 +60,4 @@ def main():
 
 
 if __name__ == '__main__':
-    model_worker = run_model(model_path='')
+    model_worker = run_model("Qwen-1_8B-Chat")
