@@ -4,10 +4,17 @@ from app import create_app
 from app.dto.response_dto import BaseResponse
 from app.liberary.model_worker.manage import do_run_model
 from app.utils import detect_device
-
+from langchain_core.prompts import ChatPromptTemplate
+from langchain.prompts.prompt import PromptTemplate
+from operator import itemgetter
 RUNTIME_ENV = 'dev'
 debug = True if RUNTIME_ENV == 'dev' else False
 app = create_app(RUNTIME_ENV)
+
+
+def run_controller():
+    from fastchat.serve.controller import app, Controller
+    uvicorn.run(app, host='127.0.0.1', port=23707)
 
 
 def run_model(model_name):

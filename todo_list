@@ -1,0 +1,4 @@
+1. 起模型
+2. 实例化langchain model
+3. 验证各种提示词，各种chain方法
+4. 验证异步 async 方法

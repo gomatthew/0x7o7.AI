@@ -3,7 +3,7 @@ from app.controller import test_router
 from app.configs import get_config_by_env
 
 
-def create_app(env):
+def create_app(env='dev'):
     config = get_config_by_env(env)
     _app = FastAPI()
     _app.include_router(test_router)
@@ -11,3 +11,4 @@ def create_app(env):
     return _app
 
 
+app = create_app()
