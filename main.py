@@ -12,9 +12,15 @@ debug = True if RUNTIME_ENV == 'dev' else False
 app = create_app(RUNTIME_ENV)
 
 
+
 def run_controller():
     from fastchat.serve.controller import app, Controller
     uvicorn.run(app, host='127.0.0.1', port=23707)
+
+
+def run_server(runtime_env):
+    app = create_app(runtime_env)
+
 
 
 def run_model(model_name):
