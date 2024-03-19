@@ -2,7 +2,7 @@ from sqlalchemy import Column, DateTime, String, Integer, func
 from app.liberary.db.base import Base
 
 
-class User(Base):
+class UserModel(Base):
     user_id = Column(String(32), primary_key=True, comment='用户id')
     user_name = Column(String(16), comment='用户名')
     user_phone = Column(String(16), comment='手机号')
