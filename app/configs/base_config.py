@@ -1,6 +1,7 @@
 """
 Base Config
 """
+import os
 
 
 class Config(object):
@@ -11,9 +12,10 @@ class Config(object):
     def __init__(self, environment=None):
         self.environment = environment
 
+    SECRET_KEY = "9&l@xuFGa7ND^fq&YZ*LYUXE5a^n__MATTHEW_ALLWAYS_WIN__EVFKdT@nMrbEA!#r!2Y0EwPnRu1^dhCDk!4L"
     # Model Settings
     TEMPERATURE = 0.17
-    MODEL_ROOT_PATH = ''
+    MODEL_ROOT_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'llm_models')
 
     # DB Settings
     SQLALCHEMY_DATABASE_URI = 'mysql://root:xxxx@127.0.0.1:3306/xxxx'
@@ -39,11 +41,11 @@ class Config(object):
     LOG_LEVEL = 'INFO'
 
     # RQ Settings, must start from 0
-    QUEUES = [f'user_worker_queue_{i}' for i in range(10)]
+    QUEUES = [f'ai_queue_{i}' for i in range(10)]
     RQ_MAX_RETRIES = 5
-    RQ_QUEUE_PREFIX = "es_worker_queue_"
+    RQ_QUEUE_PREFIX = "es_queue_"
 
-    # Elastic Search
+    # ElasticSearch
     ELASTICSEARCH_HOST = "xx.xx.xx.xxx:xx"
     ELASTICSEARCH_HTTP_AUTH = None
     ES_INDEX_PREFIX = 'xxx_'
@@ -52,3 +54,5 @@ class Config(object):
     ES_INDEX = ['']
 
 
+if __name__ == '__main__':
+    print(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'llm_models'))
