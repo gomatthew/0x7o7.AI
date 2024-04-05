@@ -13,6 +13,9 @@ class Config(object):
         self.environment = environment
 
     SECRET_KEY = "9&l@xuFGa7ND^fq&YZ*LYUXE5a^n__MATTHEW_ALLWAYS_WIN__EVFKdT@nMrbEA!#r!2Y0EwPnRu1^dhCDk!4L"
+    ACCESS_TOKEN_EXPIRE_MINUTES = 30
+    ALGORITHM = 'HS256'
+
     # Model Settings
     TEMPERATURE = 0.17
     MODEL_ROOT_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'llm_models')

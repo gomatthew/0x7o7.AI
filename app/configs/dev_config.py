@@ -15,5 +15,5 @@ class DevConfig(Config):
     OPEN_CORS = True
 
     # Model Settings
-    LLM_MODELS = ["Qwen-1_8B-Chat", ""]
+    LLM_MODELS = ["Qwen-1_8B-Chat"]
     DEFAULT_DEVICE = "auto"

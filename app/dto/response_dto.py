@@ -16,9 +16,3 @@ class BaseResponse(BaseModel):
                 "data": {"field": "value"},
             }
         }
-
-
-class ResponseHttp200(BaseResponse):
-    status: int = pydantic.Field(200, description='status code')
-    message: str = pydantic.Field(200, description='return message')
-    data: Any = pydantic.Field(..., description='json status')

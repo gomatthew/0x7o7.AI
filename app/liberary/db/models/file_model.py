@@ -1,8 +1,7 @@
 from sqlalchemy import Column, DateTime, String, Integer, func
-from app.liberary.db.base import Base
+from sqlmodel import SQLModel
 
-
-class FileModel(Base):
+class FileModel(SQLModel,table=True):
     file_id = Column(String(32), primary_key=True, comment='主键id')
     message_id = Column(String(32), comment='消息id')
     user_id = Column(String(32), comment='用户id')

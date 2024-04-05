@@ -1,8 +1,8 @@
 from sqlalchemy import Column, DateTime, String, Integer, func, Text
-from app.liberary.db.base import Base
+from sqlmodel import SQLModel
 
 
-class MessageModel(Base):
+class MessageModel(SQLModel, table=True):
     message_id = Column(String(32), primary_key=True, comment='主键id')
     message_type = Column(String(8), comment='消息类型')
     conversation_id = Column(String(32), comment='主键id')

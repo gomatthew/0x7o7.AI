@@ -1,1 +1,1 @@
-from .test_controller import router as test_router
+from .router import *

@@ -1,16 +1,26 @@
-from sqlalchemy import Column, DateTime, String, Integer, func
-from app.liberary.db.base import Base
+# -*- coding: utf-8 -*-
+import datetime
+import uuid
+from sqlmodel import Field, SQLModel
+from sqlalchemy import DATETIME, String, func, Column
 
 
-class UserModel(Base):
-    user_id = Column(String(32), primary_key=True, comment='用户id')
-    user_name = Column(String(16), comment='用户名')
-    user_phone = Column(String(16), comment='手机号')
-    user_email = Column(String(32), comment='用户邮箱')
-    user_type = Column(String(8), comment='用户类型 0-sup,1-normal,2-other')
-    user_status = Column(Integer, comment='用户状态 1-正常，0-消极用户')
-    create_user = Column(String(16), comment='创建人')
-    update_user = Column(String(16), comment='更新人')
-    create_time = Column(DateTime, default=func.now(), comment='创建时间')
-    update_time = Column(DateTime, default=func.now(), comment='更新时间')
-    delete_tag = Column(Integer, comment='删除标记 0-未删除 1-删除')
+class UserModel(SQLModel, table=True):
+    id: int = Field(primary_key=True, description="ID")
+    username: str = Field(sa_type=String(32), description="用户名")
+    password: str = Field(sa_type=String(64), description="hash_password")
+    email: str = Field(sa_type=String(64), description='Email', unique=True)
+    phone: str = Field(sa_type=String(16), description='手机号')
+    status: int = Field(default=1, description='0-非活跃 1-活跃')
+    token: int = Field(sa_type=String(64), description='token')
+    salt: str = Field(sa_type=String(64), description='盐')
+    create_time: datetime.datetime = Field(sa_type=DATETIME, default=func.now(), description="创建时间")
+    update_time: datetime.datetime = Field(sa_type=DATETIME, default=func.now(), description="更新时间")
+    version_id: str = Column(String(64))
+    __mapper_args__ = {
+        "version_id_col": version_id,
+        "version_id_generator": lambda version: uuid.uuid4().hex
+    }
+
+    def __repr__(self):
+        return self.id
