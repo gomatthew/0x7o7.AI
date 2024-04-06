@@ -2,7 +2,7 @@ import uvicorn
 import os
 from app import app
 
-from app.controller import user_router
+from app.routers import user_router
 # app = create_app(os.getenv('RUNTIME_ENV'))
 # # 注册路由
 app.include_router(user_router)

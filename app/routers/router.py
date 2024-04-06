@@ -6,7 +6,6 @@ user_router = APIRouter(
     tags=['User']
 )
 
-
 chat_router = APIRouter(
     prefix='/chat',
     tags=['LLM Chat'],
