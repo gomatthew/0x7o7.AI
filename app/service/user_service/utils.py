@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 import hashlib
+from app import app
 from typing import Union
 from jose import jwt
 from datetime import timedelta, datetime
 from passlib.context import CryptContext
-from app import app
+
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

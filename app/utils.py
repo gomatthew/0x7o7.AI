@@ -1,6 +1,6 @@
 import datetime
-from typing import Literal, List, Callable
-from langchain.chat_models import ChatOpenAI
+from typing import Literal
+from langchain_community.chat_models import ChatOpenAI
 
 
 def detect_device() -> Literal["cuda", "mps", "cpu"]:
@@ -50,4 +50,5 @@ class DateTimeLib(object):
         return datetime.datetime.now()
 
 
-dt = DateTimeLib
+dt = DateTimeLib()
+

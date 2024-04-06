@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
+import os
 import logging
+
 from fastapi import FastAPI
-from app.controller import user_router, chat_router, llm_model_router
-from app.configs import get_config_by_env
 from fastapi.middleware.cors import CORSMiddleware
+from app.configs import get_config_by_env
+
 
 __version__ = '0.0.1'
 
@@ -21,28 +24,26 @@ def get_logger(logger_level):
 
 
 def create_app(env='dev'):
-    config = get_config_by_env(env)
-    _app = FastAPI(
+    app = FastAPI(
         title='AI 0x7o7',
+        summary='LLM Model Service',
         version=__version__
     )
+    config = get_config_by_env(env)
+
     if config.OPEN_CORS:
-        _app.add_middleware(
+        app.add_middleware(
             CORSMiddleware,
             allow_origins=["*"],
             allow_credentials=True,
             allow_methods=["*"],
             allow_headers=["*"],
         )
-    _logger = get_logger(config.get('LOG_LEVEL'))
-    _app.__setattr__('logger', _logger)
-    _app.__setattr__("config", config)
-    return _app
 
+    app.__setattr__("config", config.dict())
+    _logger = get_logger(app.config.get('LOG_LEVEL'))
+    app.__setattr__('logger', _logger)
+    return app
 
-app = create_app()
-
-# 注册路由
-app.include_router(user_router)
-app.include_router(chat_router)
-app.include_router(llm_model_router)
+app = create_app(os.getenv('RUNTIME_ENV'))
+# from app.service.router import user_router

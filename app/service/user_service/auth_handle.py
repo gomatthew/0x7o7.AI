@@ -1,22 +1,26 @@
 # -*- coding: utf-8 -*-
 import traceback
+
 from fastapi import Request
-from .utils import *
+
 from app import app
 from app.utils import dt
-from app.controller import user_router as router
+from app.controller.router import user_router as router
 from app.dto import UserLoginDTO, BaseResponse
 from app.liberary.db.repository.user_repository import update_user_token, user_checkin
+from .utils import verify_password, create_access_token, decode_access_token
 
 
 @router.post('/login', response_model=BaseResponse)
 async def user_login(user_info: UserLoginDTO):
     try:
-        app.logger.info('🟢 User login Start.')
-        user_account = user_info.get('account')
-        row_password = user_account.get('password')
-        user_id, hash_password = user_checkin(user_account)
-        verify_result = verify_password(row_password, hash_password)
+        user_account = user_info.account
+        row_password = user_info.password
+        app.logger.info(f'🟢 User : {user_account} login Start.')
+        user_id, salt, hash_password = user_checkin(user_account)
+        if not user_id:
+            return BaseResponse(status=200, message='未注册账户')
+        verify_result = verify_password(row_password + salt, hash_password)
         if verify_result:
             token_payload = {'iat': dt.now, 'iss': '0x7o7_AI', 'data': {'user_id': user_id}}
             token = create_access_token(token_payload)

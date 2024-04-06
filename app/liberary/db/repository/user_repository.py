@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from typing import Union
 from sqlmodel import select
 from app.liberary.db.session import with_session
 from app.liberary.db.models.user_model import UserModel
@@ -7,8 +6,13 @@ from app.liberary.db.models.user_model import UserModel
 
 @with_session
 def add_user_to_db(session, **kwargs):
+    statement = select(UserModel).where(UserModel.email == kwargs.get('email'))
+    user_check = session.exec(statement).first()
+    if user_check:
+        return False
     new_user = UserModel(**kwargs)
     session.add(new_user)
+    session.commit()
     return new_user.id
 
 
@@ -29,6 +33,6 @@ def user_checkin(session, account) -> tuple:
         statement = select(UserModel).where(UserModel.phone == account)
     user = session.exec(statement).first()
     if user:
-        return user.id, user.password
+        return user.id, user.salt, user.password
     else:
-        return None, None
+        return None, None, None
