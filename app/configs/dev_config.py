@@ -15,4 +15,12 @@ class DevConfig(Config):
 
     # Model Settings
     LLM_MODELS: List[str] = ["Qwen-1_8B-Chat"]
-    DEFAULT_DEVICE: str = "auto"
+    LLM_DEVICE: str = "auto"
+
+    MODEL_CONFIG = {
+        'Qwen-1_8B-Chat': {'path': 'Qwen/Qwen-1_8B-Chat', 'device': 'auto'}
+    }
+
+    MODEL_FACTORY_DICT = {
+        'Qwen': ['Qwen-1_8B-Chat']
+    }

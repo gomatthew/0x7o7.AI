@@ -1,6 +1,14 @@
 import datetime
 from typing import Literal
 from langchain_community.chat_models import ChatOpenAI
+from app import app
+
+
+def get_model_config(model_name):
+    llm_model_config = app.config.get('MODEL_CONFIG')
+    if model_name not in llm_model_config.keys():
+        return f'{model_name} is not available, you need add model instance in project'
+    return llm_model_config.get(model_name)
 
 
 def detect_device() -> Literal["cuda", "mps", "cpu"]:
@@ -51,4 +59,3 @@ class DateTimeLib(object):
 
 
 dt = DateTimeLib()
-
