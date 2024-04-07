@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 import os
 import logging
-
+import redis
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.configs import get_config_by_env
-
 
 __version__ = '0.0.1'
 
@@ -39,11 +38,14 @@ def create_app(env='dev'):
             allow_methods=["*"],
             allow_headers=["*"],
         )
-
-    app.__setattr__("config", config.dict())
-    _logger = get_logger(app.config.get('LOG_LEVEL'))
-    app.__setattr__('logger', _logger)
+    app.config = config.dict()
+    app.logger = app.config.get('LOG_LEVEL')
+    app.redis = redis.from_url(app.config.get('REDIS_URL'))
+    # app.__setattr__("config", config.dict())
+    # _logger = get_logger(app.config.get('LOG_LEVEL'))
+    # app.__setattr__('logger', _logger)
     return app
+
 
 app = create_app(os.getenv('RUNTIME_ENV'))
 # from app.service.router import user_router
