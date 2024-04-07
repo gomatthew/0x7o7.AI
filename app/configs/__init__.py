@@ -9,4 +9,5 @@ def get_config_by_env(run_time_env):
         case 'prod':
             return ProdConfig()
         case _:
-            raise Exception('wrong run time env')
+            return DevConfig()
+            # raise (ModuleNotFoundError("wrong env config"))
