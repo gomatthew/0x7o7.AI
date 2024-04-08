@@ -3,6 +3,7 @@ import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from app.liberary.model_worker.base import ModelWorkerBase
 from app.utils import get_model_config
+from langchain import HuggingFacePipeline
 
 
 class QwenModelWorker(ModelWorkerBase):
@@ -16,9 +17,10 @@ class QwenModelWorker(ModelWorkerBase):
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_path)
 
     def lunch_model(self):
-        model_instance = self.model.eval()
-        return model_instance
-
+        llm = HuggingFacePipeline.from_model_id(model_id=self.model_path, task=self.model_task,
+                                                model_kwargs={"temperature": self.temperature,
+                                                              "max_length": self.max_length, 'trust_remote_code': True})
+        return llm
 
 # prompt = "Give me a short introduction to large language model."
 #
