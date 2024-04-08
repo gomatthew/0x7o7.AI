@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from fastapi import Request, Body
 from app import app
-from app.liberary.model_worker import get_model_by_name
-
+from app.dto.response_dto import BaseResponse
 
 
 async def chat_bot(request: Request,
@@ -10,5 +9,9 @@ async def chat_bot(request: Request,
                    model_name: str = Body(app.config.get('LLM_MODELS')[0], description='LLM Model Name'),
                    temperature: float = Body(app.config.get('TEMPERATURE'), description='Model Temperature'),
                    stream: bool = Body(True, description='Stream Output')):
-    model = get_model_by_name(model_name)
+    llm = app.model.get(model_name)
+    if not llm:
+        return BaseResponse(status=200,
+                            message=f'{model_name} is not available, available model:{list(app.model.keys())}')
+
     return
