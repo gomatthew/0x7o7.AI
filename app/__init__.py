@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 import logging
+import uuid
+
 import redis
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -38,8 +40,9 @@ def create_app(env='dev'):
             allow_methods=["*"],
             allow_headers=["*"],
         )
+    app.seed = uuid.uuid4().hex
     app.config = config.dict()
-    app.logger = app.config.get('LOG_LEVEL')
+    app.logger = get_logger(app.config.get('LOG_LEVEL'))
     app.redis = redis.from_url(app.config.get('REDIS_URL'))
     # app.__setattr__("config", config.dict())
     # _logger = get_logger(app.config.get('LOG_LEVEL'))
