@@ -1,0 +1,103 @@
+# -*- coding: utf-8 -*-
+from langchain_community.agent_toolkits.github.toolkit import GitHubToolkit
+# 搜索github issue
+from langchain_community.tools import ShellTool
+# 使用shell
+
+from langchain_community.utilities.alpha_vantage import AlphaVantageAPIWrapper
+# Alpha Vantage provides realtime and historical financial market data through a set of powerful and developer-friendly data APIs and spreadsheets.
+# 金融分析
+
+from langchain_community.utilities import ApifyWrapper
+# 爬虫
+
+from langchain_community.utilities import ArxivAPIWrapper
+# 科研文档
+
+# awslambda
+# aws相关插件
+
+# from langchain_community.tools import BearlyInterpreterTool
+# 执行远程代码文件
+
+# from langchain_community.utilities import BingSearchAPIWrapper
+# bing search
+
+# from langchain_community.utilities.dataforseo_api_search import DataForSeoAPIWrapper
+# 自定义搜索,多引擎搜搜,多搜索类型, map,text
+# from langchain_community.tools import DuckDuckGoSearchRun
+# duckduckgo
+
+# from langchain_community.tools import E2BDataAnalysisTool
+# E2B python matplotlib 画图
+
+# from langchain_community.agent_toolkits import FileManagementToolkit
+# 文件操作
+# from langchain_community.utilities.golden_query import GoldenQueryAPIWrapper
+# golden query
+
+# from langchain_community.tools import GoogleCloudTextToSpeechTool
+# 将文字转为声音
+# from langchain_community.utilities import GoogleSearchAPIWrapper
+# google search
+# from gradio_tools.tools import StableDiffusionTool
+# 在hugging face 上找工具
+# from langchain.agents import load_huggingface_tool
+# 直接使用hugging face 工具,或者模型?
+
+
+# from langchain.agents import AgentType, initialize_agent, load_tools
+# from langchain_openai import ChatOpenAI, OpenAI
+#
+# llm = ChatOpenAI(temperature=0.0)
+# math_llm = OpenAI(temperature=0.0)
+# tools = load_tools(
+#     ["human", "llm-math"], # 与人类交互
+#     llm=math_llm,
+# )
+
+# from langchain_community.utilities.infobip import InfobipAPIWrapper
+# 发送Email
+# from ionic_langchain.tool import Ionic, IonicTool
+# 电子商务
+# from langchain_community.llms import GradientLLM
+# 训练模型
+# from langchain_experimental.utilities import PythonREPL
+# 执行 python 源码
+
+# from langchain_community.tools.reddit_search.tool import RedditSearchRun
+# from langchain_community.utilities.reddit_search import RedditSearchAPIWrapper
+# reddit search 关于社会新闻
+
+
+# from langchain.agents import load_tools
+# requests_tools = load_tools(["requests_all"])
+# 包装request,可以用作单元测试
+
+
+# import sqlalchemy as sa
+# from langchain_community.utilities import SQLDatabase
+#
+# db = SQLDatabase.from_uri("sqlite:///Chinook.db")
+# sql 工具
+
+# from langchain_community.utilities import StackExchangeAPIWrapper
+# stackoverflow 搜索
+# from langchain_community.tools.tavily_search import TavilySearchResults
+# 专为人工智能提供的搜索引擎
+# from langchain_community.utilities.twilio import TwilioAPIWrapper
+# 发送sms 和 WhatsApp 信息
+# from langchain_community.tools.wikidata.tool import WikidataAPIWrapper, WikidataQueryRun
+# wiki 百科搜索
+
+# wolfram = WolframAlphaAPIWrapper()
+# 直接给出答案的搜索引擎
+# from langchain_community.tools.yahoo_finance_news import YahooFinanceNewsTool
+# 雅虎金融api
+
+# from langchain_community.tools import YouTubeSearchTool
+# youtube search
+
+# from langchain_community.agent_toolkits import ZapierToolkit
+# from langchain_community.utilities.zapier import ZapierNLAWrapper
+# 第三方工具集合
