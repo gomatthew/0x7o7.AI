@@ -1,10 +1,10 @@
 import datetime
-from typing import Literal,Union,Dict
+from typing import Literal, Union, Dict
 from langchain_community.chat_models import ChatOpenAI
 from app import app
 
 
-def get_model_config(model_name)->Union[str,Dict]:
+def get_model_config(model_name) -> Union[str, Dict]:
     llm_model_config = app.config.get('MODEL_CONFIG')
     if model_name not in llm_model_config.keys():
         return f'{model_name} is not available, you need add model instance in project'

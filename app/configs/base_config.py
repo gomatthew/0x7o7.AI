@@ -54,6 +54,14 @@ class Config(BaseSettings):
     ES_DEFAULT_REPLICAS: int = 1
     ES_INDEX: List[str] = ['']
 
+    # Setting for llm
+    MODEL_CONFIG: Dict[str, Dict] = {
+        'Qwen-1_8B-Chat': {'path': 'Qwen/Qwen-1_8B-Chat', 'device': 'auto'}
+    }
+
+    MODEL_MAPPING: Dict[str, List] = {
+        'Qwen': ['Qwen-1_8B-Chat']
+    }
 
 if __name__ == '__main__':
     print(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'llm_models'))

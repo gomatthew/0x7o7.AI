@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from app import app
+# from app import app
 from abc import abstractmethod, ABCMeta
 from app.liberary.enum.pipeline_task_enum import PipeLineTaskEnum
-
+from app.configs.base_config import Config
 '''
 device (int or str or torch.device) — Defines the device (e.g., "cpu", "cuda:1", "mps", or a GPU ordinal rank like 1) on which this pipeline will be allocated.
 device_map (str or Dict[str, Union[int, str, torch.device], optional) — Sent directly as model_kwargs (just a simpler shortcut). When accelerate library is present, set device_map="auto" to compute the most optimized device_map automatically (see here for more information).
@@ -25,7 +25,7 @@ class ModelWorkerBase(object, metaclass=ABCMeta):
     def __init__(self):
         self.model_name = ''
         self.model_task = PipeLineTaskEnum.TEXT_GENERATION.value
-        self.device = app.config.get('LLM_DEVICE')
+        self.device = Config.Device
         self.model_root_path = app.config.get('MODEL_ROOT_PATH')
         self.temperature = app.config.get('TEMPERATURE')
         self.max_length = app.config.get('MAX_LENGTH')

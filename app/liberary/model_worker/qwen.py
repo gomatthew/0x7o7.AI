@@ -22,7 +22,7 @@ class QwenModelWorker(ModelWorkerBase):
         #                 trust_remote_code=True)
         # llm = HuggingFacePipeline(pipeline=pipe)
         llm = HuggingFacePipeline.from_model_id(model_id=self.model_path, task=self.model_task, device_map='auto',
-                                                model_kwargs={"temperature": self.temperature,
+                                                model_kwargs={"temperature": self.temperature, 'do_sample': True,
                                                               "max_length": self.max_length, 'trust_remote_code': True},
                                                 pipeline_kwargs={"max_new_tokens": 10})
         return llm
