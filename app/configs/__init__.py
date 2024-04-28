@@ -1,7 +1,7 @@
 from .dev_config import DevConfig
 from .prod_config import ProdConfig
 
-
+start_model = []
 def get_config_by_env(run_time_env):
     match run_time_env:
         case 'dev':

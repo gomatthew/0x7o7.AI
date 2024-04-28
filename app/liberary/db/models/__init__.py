@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from app.liberary.db.base import engine
 
 if __name__ == '__main__':

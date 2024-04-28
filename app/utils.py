@@ -1,7 +1,7 @@
 import datetime
 from typing import Literal, Union, Dict
 from langchain_community.chat_models import ChatOpenAI
-from app import app
+
 
 import asyncio
 from typing import Literal, Union, Dict, List, Callable, Awaitable

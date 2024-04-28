@@ -3,14 +3,16 @@
 # from app import app
 from abc import abstractmethod, ABCMeta
 from app.liberary.enum.pipeline_task_enum import PipeLineTaskEnum
-from app.configs.base_config import Config
+from llm_model_worker import DEFAULT_DEVICE, MODEL_ROOT_PATH, TEMPERATURE, MAX_LENGTH
+
 '''
 device (int or str or torch.device) — Defines the device (e.g., "cpu", "cuda:1", "mps", or a GPU ordinal rank like 1) on which this pipeline will be allocated.
 device_map (str or Dict[str, Union[int, str, torch.device], optional) — Sent directly as model_kwargs (just a simpler shortcut). When accelerate library is present, set device_map="auto" to compute the most optimized device_map automatically (see here for more information).
 Do not use device_map AND device at the same time as they will conflict
 '''
+
+
 # -*- coding: utf-8 -*-
-from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 
 
 # from transformers import
@@ -25,10 +27,10 @@ class ModelWorkerBase(object, metaclass=ABCMeta):
     def __init__(self):
         self.model_name = ''
         self.model_task = PipeLineTaskEnum.TEXT_GENERATION.value
-        self.device = Config.Device
-        self.model_root_path = app.config.get('MODEL_ROOT_PATH')
-        self.temperature = app.config.get('TEMPERATURE')
-        self.max_length = app.config.get('MAX_LENGTH')
+        self.device = DEFAULT_DEVICE
+        self.model_root_path = MODEL_ROOT_PATH
+        self.temperature = TEMPERATURE
+        self.max_length = MAX_LENGTH
         # self.model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen1.5-7B-Chat", device_map="auto")
         # self.tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen1.5-7B-Chat")
 

@@ -5,6 +5,7 @@ from sqlmodel import SQLModel, Field
 
 
 class FileModel(SQLModel, table=True):
+    __tablename__ = 'file'
     file_id: str = Field(sa_type=String(32), primary_key=True, sa_column_kwargs={"comment": "主键id"})
     message_id: str = Field(sa_type=String(32), sa_column_kwargs={"comment": "消息id"})
     user_id: str = Field(sa_type=String(32), sa_column_kwargs={"comment": "用户id"})

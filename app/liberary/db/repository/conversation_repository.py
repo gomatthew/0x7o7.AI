@@ -5,7 +5,7 @@ from sqlalchemy import and_
 
 
 @with_session
-def add_conversation_to_db(session, user_id, user_query="", conversation_id=None) -> str:
+def add_conversation_to_db(session, user_id, create_user, user_query="", conversation_id=None) -> str:
     """
     新增聊天对话
     """
@@ -19,8 +19,9 @@ def add_conversation_to_db(session, user_id, user_query="", conversation_id=None
 
     if not conversation_id:
         conversation_id = uuid.uuid4().hex
-    conversation_obj = ConversationModel(conversation_id=conversation_id, user_query=user_query, user_id=user_id, delete_tag=0)
+    conversation_obj = ConversationModel(conversation_id=conversation_id, user_query=user_query, user_id=user_id,
+                                         create_user=create_user, delete_tag=0)
 
     session.add(conversation_obj)
     session.commit()
-    return conversation_id.conversation_id
+    return conversation_obj.conversation_id

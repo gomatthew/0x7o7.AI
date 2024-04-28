@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 import os
-import logging
 import uuid
-import traceback
 import redis
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.configs import get_config_by_env
 from app.liberary.logger import get_logger
-# from app.service.model_service.model_service import start_model
+from llm_model_worker.llm_model_lunch import init_llm_lunch
 __version__ = '0.0.1'
+
 
 
 # 🟢
@@ -45,6 +44,7 @@ def create_app(env='dev'):
     app.config = config.dict()
     app.logger = get_logger(app.config.get('LOG_LEVEL'))
     app.redis = redis.from_url(app.config.get('REDIS_URL'))
+    app.llm = init_llm_lunch()
     # llm_model = app.config.get('LLM_MODELS')
     # model_dict = dict()
     # for model_name in llm_model:
@@ -57,4 +57,4 @@ def create_app(env='dev'):
 
 
 app = create_app(os.getenv('RUNTIME_ENV'))
-# from app.service.router import user_router
+

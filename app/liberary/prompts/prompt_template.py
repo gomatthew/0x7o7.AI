@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 PROMPT_TEMPLATE = {
     'chat_bot': {
-        'default': '',
+        'default': '{input}',
 
         'douyin_chat': ''
     }

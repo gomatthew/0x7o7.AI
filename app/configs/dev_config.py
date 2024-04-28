@@ -17,7 +17,5 @@ class DevConfig(Config):
     # CORS
     OPEN_CORS: bool = True
 
-    # Model Settings
-    LLM_MODELS: List[str] = ["Qwen-1_8B-Chat"]
-    LLM_DEVICE: str = "auto"
+
 

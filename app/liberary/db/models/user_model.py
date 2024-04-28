@@ -6,6 +6,7 @@ from sqlalchemy import DateTime, String, func, Column
 
 
 class UserModel(SQLModel, table=True):
+    __tablename__ = 'user'
     id: int = Field(primary_key=True, description="ID")
     username: str = Field(sa_type=String(32), description="用户名", sa_column_kwargs={"comment": "用户名"})
     password: str = Field(sa_type=String(64), description="hash_password",

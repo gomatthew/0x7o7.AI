@@ -1,31 +1,32 @@
 # -*- coding: utf-8 -*-
-import os
-import traceback
 
-from app import app
+from llm_model_worker import LLM_MODELS, MODEL_MAPPING
 from typing import Union
 
 
-def model_factory(model_name) -> Union[callable, str]:
+def model_factory(llm_model_name) -> Union[callable, str]:
     # 起进程，记录进程id，将进程信息保存在redis。
     model_key: str = ''
-    llm_model = app.config.get('LLM_MODELS')
-    if model_name not in llm_model:
-        return f'{model_name} is not use for this project.'
-    llm_model_factory = app.config.get('MODEL_MAPPING')
+    llm_model = LLM_MODELS
+    if llm_model_name not in llm_model:
+        return f'{llm_model_name} is not use for this project.'
+    llm_model_factory = MODEL_MAPPING
     for k, v in llm_model_factory.items():
-        if model_name in v:
+        if llm_model_name in v:
             model_key = k
     match model_key:
         case 'Qwen':
-            from app.liberary.model_worker.qwen import QwenModelWorker
-            return QwenModelWorker(model_name)  # 有1.8B-7B 所以需要传入不同的model_name
+            from llm_model_worker.qwen import QwenModelWorker
+            return QwenModelWorker(llm_model_name)  # 有1.8B-7B 所以需要传入不同的model_name
         case 'llama':
             pass
         case 'whisper':
             pass
         case _:
-            return f'{model_name} is not available'
+            return f'{llm_model_name} is not available'
+
+
+
 
 # def get_langchain_llm(model_name):
 #
