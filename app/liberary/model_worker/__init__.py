@@ -11,7 +11,7 @@ def model_factory(model_name) -> Union[callable, str]:
     model_key: str = ''
     llm_model = app.config.get('LLM_MODELS')
     if model_name not in llm_model:
-        return f'{model_name} is not '
+        return f'{model_name} is not use for this project.'
     llm_model_factory = app.config.get('MODEL_MAPPING')
     for k, v in llm_model_factory.items():
         if model_name in v:
@@ -20,6 +20,10 @@ def model_factory(model_name) -> Union[callable, str]:
         case 'Qwen':
             from app.liberary.model_worker.qwen import QwenModelWorker
             return QwenModelWorker(model_name)  # 有1.8B-7B 所以需要传入不同的model_name
+        case 'llama':
+            pass
+        case 'whisper':
+            pass
         case _:
             return f'{model_name} is not available'
 

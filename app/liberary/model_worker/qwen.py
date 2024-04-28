@@ -12,6 +12,7 @@ class QwenModelWorker(ModelWorkerBase):
         self.model_name = model_name
         self.model_config = get_model_config(self.model_name)
         self.model_path = os.path.join(self.model_root_path, self.model_config.get('path'))
+        self.worker = self.lunch_model()
         # self.model = AutoModelForCausalLM.from_pretrained(self.model_path,trust_remote_code=True,
         #                                                   device_map=self.model_config.get('device'))
         # self.tokenizer = AutoTokenizer.from_pretrained(self.model_path,trust_remote_code=True)
@@ -22,11 +23,14 @@ class QwenModelWorker(ModelWorkerBase):
         #                 trust_remote_code=True)
         # llm = HuggingFacePipeline(pipeline=pipe)
         llm = HuggingFacePipeline.from_model_id(model_id=self.model_path, task=self.model_task, device_map='auto',
-                                                model_kwargs={"temperature": self.temperature, 'do_sample': True,
-                                                              "max_length": self.max_length, 'trust_remote_code': True},
+                                                model_kwargs={"temperature": self.temperature,
+                                                              "max_length": self.max_length,
+                                                              'trust_remote_code': True},
                                                 pipeline_kwargs={"max_new_tokens": 10})
         return llm
 
+    def get_llm(self):
+        return self.worker
 # prompt = "Give me a short introduction to large language model."
 #
 # messages = [{"role": "user", "content": prompt}]

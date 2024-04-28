@@ -10,14 +10,14 @@ from app.service.model_service.model_service import start_model
 app.include_router(router_index)
 
 
-def make_llm_run():
-    llm_model = app.config.get('LLM_MODELS')
-    model_dict = dict()
-    for model_name in llm_model:
-        model_dict[model_name] = start_model(model_name)
-    return model_dict
 
-app.llm_model = make_llm_run()
+# def make_llm_run():
+#     llm_model = app.config.get('LLM_MODELS')
+#     model_dict = dict()
+#     for model_name in llm_model:
+#         model_dict[model_name] = start_model(model_name)
+#     app.llm_model = model_dict
+
 
 
 def main():
