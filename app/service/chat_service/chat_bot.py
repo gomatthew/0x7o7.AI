@@ -7,10 +7,9 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.callbacks import AsyncIteratorCallbackHandler
 from app import app
-<<<<<<< HEAD
 from app.dto.response_dto import BaseResponse
-from app.routers.router import chat_router as router
-=======
+# from app.routers.router import chat_router as router
+from app.routers import router_index as router
 from app.utils import wrap_done
 from app.service.model_service.model_service import get_hugging_face_llm
 from app.liberary.prompts.prompt_template import PROMPT_TEMPLATE
@@ -19,7 +18,6 @@ from app.liberary.enum.chat_type_enum import ChatTypeEnum
 from app.liberary.db.repository.message_repository import add_message_to_db
 from app.liberary.db.repository.conversation_repository import add_conversation_to_db
 from app.liberary.callback_handler.conversation_callback_handler import ConversationCallbackHandler
->>>>>>> 930d8f05ec9f565e7737c9e4076e51dca4f6b52f
 
 
 @router.post('/llm/chat')
@@ -31,12 +29,10 @@ async def chat_bot(request: Request,
                    memory: bool = Body(False, description='need memory'),
                    # temperature: float = Body(app.config.get('TEMPERATURE'), description='Model Temperature'),
                    stream: bool = Body(True, description='Stream Output')):
-<<<<<<< HEAD
     llm = app.llm_model.get(model_name)
     if not llm:
         return BaseResponse(status=200,
                             message=f'{model_name} is not available, available model:{list(app.model.keys())}')
-=======
     chat_history = None
     if not conversation_id:
         conversation_id = add_conversation_to_db(user_id='user_id', user_query=query)
@@ -53,7 +49,6 @@ async def chat_bot(request: Request,
     custom_callback = ConversationCallbackHandler(conversation_id=conversation_id, message_id=message_id,
                                                   chat_type=ChatTypeEnum.TEXT_CHAT.name, query=query)
     callbacks = [async_callback, custom_callback]
->>>>>>> 930d8f05ec9f565e7737c9e4076e51dca4f6b52f
 
     async def chat_iterator():
         task = asyncio.create_task((wrap_done(

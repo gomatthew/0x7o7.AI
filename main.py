@@ -10,7 +10,6 @@ from app.service.model_service.model_service import start_model
 app.include_router(router_index)
 
 
-
 # def make_llm_run():
 #     llm_model = app.config.get('LLM_MODELS')
 #     model_dict = dict()
@@ -19,14 +18,12 @@ app.include_router(router_index)
 #     app.llm_model = model_dict
 
 
-
 def main():
     # make_llm_run()
     if app.debug:
         uvicorn.run("main:app", host='127.0.0.1', port=8081, reload=True, workers=1)
     else:
         uvicorn.run("main:app", host='127.0.0.1', port=8081, reload=True, workers=1)
-
 
 
 if __name__ == '__main__':

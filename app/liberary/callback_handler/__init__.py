@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from conversation_callback_handler import ConversationCallbackHandler
+from .conversation_callback_handler import ConversationCallbackHandler

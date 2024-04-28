@@ -4,7 +4,8 @@ from .utils import *
 from app import app
 from app.utils import dt
 from app.dto import BaseResponse, UserDTO
-from app.routers.router import user_router as router
+# from app.routers.router import user_router as router
+from app.routers import router_index as router
 from app.liberary.db.repository.user_repository import add_user_to_db, update_user_token
 
 

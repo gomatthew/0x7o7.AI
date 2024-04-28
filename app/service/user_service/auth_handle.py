@@ -5,7 +5,8 @@ from fastapi import Request
 
 from app import app
 from app.utils import dt
-from app.routers.router import user_router as router
+# from app.routers.router import user_router as router
+from app.routers import router_index as router
 from app.dto import UserLoginDTO, BaseResponse
 from app.liberary.db.repository.user_repository import update_user_token, user_checkin
 from .utils import verify_password, create_access_token, decode_access_token
