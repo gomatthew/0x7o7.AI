@@ -1,10 +1,21 @@
 import datetime
-from typing import Literal,Union,Dict
-from langchain_community.chat_models import ChatOpenAI
+import asyncio
+from typing import Literal, Union, Dict, List, Callable, Awaitable
 from app import app
 
 
-def get_model_config(model_name)->Union[str,Dict]:
+# def get_ChatOpenAI(
+#         model_name: str,
+#         temperature: float,
+#         max_tokens: int = None,
+#         stream: bool = True,
+#         callbacks=List[Callable],
+#         verbose: bool = True
+# ) -> ChatOpenAI:
+#     model_instance = model_factory(model_name)
+#     llm = model_instance.get_llm()
+#     ChatOpenAI()
+def get_model_config(model_name) -> Union[str, Dict]:
     llm_model_config = app.config.get('MODEL_CONFIG')
     if model_name not in llm_model_config.keys():
         return f'{model_name} is not available, you need add model instance in project'
@@ -21,6 +32,19 @@ def detect_device() -> Literal["cuda", "mps", "cpu"]:
     except:
         pass
     return "cpu"
+
+
+async def wrap_done(fn: Awaitable, event: asyncio.Event):
+    """Wrap an awaitable with a event to signal when it's done or an exception is raised."""
+    try:
+        await fn
+    except Exception as e:
+        print(e)
+        msg = f"Caught exception: {e}"
+        print(f'{e.__class__.__name__}: {msg}')
+    finally:
+        # Signal the aiter to stop.
+        event.set()
 
 
 #

@@ -12,7 +12,7 @@ def start_model(model_name):
             return f'{model_name} is not available'
         model = model_instance.lunch_model()
         app.logger.info(f'🟢 Start model :{model_name} success.')
-        return model
+        # return model
         # process = Process(
         #     target=model_instance.lunch_model(),
         #     name=f'model_worker_{model_name}',
@@ -29,12 +29,15 @@ def start_model(model_name):
         app.logger.error(e)
 
 
-def get_model_by_name(model_name):
-    model = app.redis.hget('AI Service', f'{model_name}_worker_instance_{app.seed}')
-    return model
+# def get_llm_by_name(model_name):
+#     model = app.redis.hget('AI Service', f'{model_name}_worker_instance_{app.seed}')
+#     return model
+
+
+def get_hugging_face_llm(llm_name: str):
+    model_instance = model_factory(llm_name)
+    return model_instance.get_llm()
 
 
 def list_llm_models():
     app.redis.hget('AI Service')
-
-
