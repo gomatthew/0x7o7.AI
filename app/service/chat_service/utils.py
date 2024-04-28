@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from typing import List, Dict
+from typing import List
 from langchain.memory import ChatMessageHistory
 from app.dto.chat_dto import ChatHistory
 from app.liberary.enum.chat_enum import ChatRoleEnum
