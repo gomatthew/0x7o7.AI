@@ -21,6 +21,10 @@ from app.liberary.callback_handler.conversation_callback_handler import Conversa
 from llm_model_worker import LLM_MODELS
 
 
+# 将hugging face model 集成到 langchain里
+# https://python.langchain.com/docs/integrations/llms/huggingface_pipelines/
+
+
 @router.post('/llm/chat')
 async def chat_bot(request: Request,
                    query: str = Body(..., description='user query'),
